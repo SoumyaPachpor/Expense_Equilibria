@@ -16,6 +16,7 @@ void addEdge(Graph* graph, int from, int to, double amount);
 
 // Detect cycle in the graph using DFS (returns 1 if cycle exists, 0 otherwise)
 int detectCycle(Graph* graph);
+bool dfsCycleCheck(Graph* graph, int participant, bool* visited, bool* recStack);
 
 // Minimize cash flow between participants
 void minimizeCashFlow(Graph* graph, BalanceArray* balances);
