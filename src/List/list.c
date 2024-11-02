@@ -35,14 +35,45 @@ void addTransactionList(ListTransaction **head, const char *payer, const char *r
     }
 }
 
-// Function to display the list of transactions
-void displayTransactions(ListTransaction *head) {
-    printf("ListTransaction History:\n");
-    ListTransaction *temp = head;
-    while (temp != NULL) {
-        printf("Payer: %s, Receiver: %s, Amount: %.2f\n", temp->payer, temp->receiver, temp->amount);
-        temp = temp->next;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "list.h"
+
+// Helper function to check if a transaction is unique
+int isUniqueTransaction(ListTransaction *head, const char *payer, const char *receiver) {
+    ListTransaction *current = head;
+    while (current != NULL) {
+        if (strcmp(current->payer, payer) == 0 && strcmp(current->receiver, receiver) == 0) {
+            return 0;  // Not unique
+        }
+        current = current->next;
     }
+    return 1;  // Unique
+}
+
+void displayTransactions(ListTransaction *head) {
+    if (!head) {
+        printf("No transactions to display.\n");
+        return;
+    }
+
+    printf("\n==============================\n");
+    printf("        Transaction History\n");
+    printf("==============================\n");
+    printf("%-15s %-15s %-10s\n", "Payer", "Receiver", "Amount");
+    printf("------------------------------------------------\n");
+
+    ListTransaction *current = head;
+    while (current != NULL) {
+        if (isUniqueTransaction(head, current->payer, current->receiver)) {
+            printf("%-15s %-15s $%.2f\n", current->payer, current->receiver, current->amount);
+        }
+        current = current->next;
+    }
+
+    printf("------------------------------------------------\n");
+    printf("          End of History\n\n");
 }
 
 // Function to free the memory allocated for the transaction list

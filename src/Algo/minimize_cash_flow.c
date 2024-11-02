@@ -48,7 +48,7 @@ void minimizeCashFlow(Graph *graph, Participant *participants) {
         float settleAmount = (maxAmount < minAmount) ? maxAmount : minAmount;
 
         // Print the transaction
-        printf("%s pays %.2f to Participant %s\n", maxReceiver->name, settleAmount, minPayer->name);
+        printf("%s pays %.2f to %s\n", maxReceiver->name, settleAmount, minPayer->name);
 
         // Update balances
         maxReceiver->balance -= settleAmount;
